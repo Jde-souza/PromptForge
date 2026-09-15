@@ -6,7 +6,7 @@ import './EditorView.css';
 const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
   const [prompt, setPrompt] = useState(initialPrompt || {
     id: Date.now().toString(),
-    title: 'New Prompt',
+    title: 'Nuevo Prompt',
     category: 'System Architecture',
     model: 'GPT-4o',
     content: '',
@@ -56,12 +56,12 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
     <div className="editor-view">
       <div className="editor-header">
         <button className="btn-secondary back-btn" onClick={onBack}>
-          <ArrowLeft size={16} /> Back
+          <ArrowLeft size={16} /> Atrás
         </button>
         <div className="header-actions">
           <button className="btn-secondary">v1.0</button>
           <button className="btn-primary" onClick={handleSave}>
-            <Save size={16} /> Save Changes
+            <Save size={16} /> Guardar Cambios
           </button>
         </div>
       </div>
@@ -70,7 +70,7 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
         {/* Left Panel: 60% Editor */}
         <div className="panel editor-panel">
           <div className="panel-header">
-            <h3>Template Editor</h3>
+            <h3>Editor de Plantillas</h3>
           </div>
           <div className="metadata-inputs">
             <input 
@@ -78,7 +78,7 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
               value={prompt.title} 
               onChange={e => handleMetaChange('title', e.target.value)}
               className="meta-input title-input"
-              placeholder="Prompt Title"
+              placeholder="Título del Prompt"
             />
             <div className="meta-row">
               <select 
@@ -108,7 +108,7 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
               className="prompt-textarea mono"
               value={prompt.content}
               onChange={handleContentChange}
-              placeholder="Write your prompt here... Use {{variable_name}} to add dynamic variables."
+              placeholder="Escribe tu prompt aquí... Usa {{nombre_variable}} para agregar variables dinámicas."
               spellCheck="false"
             />
           </div>
@@ -117,13 +117,13 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
         {/* Right Panel: 40% Injector & Preview */}
         <div className="panel injector-panel">
           <div className="panel-header">
-            <h3>Live Variables</h3>
+            <h3>Variables Dinámicas</h3>
             <span className="badge primary">{prompt.variables.length}</span>
           </div>
           
           <div className="variables-list">
             {prompt.variables.length === 0 ? (
-              <p className="no-vars-msg">Add {'{{variables}}'} in the editor to see them here.</p>
+              <p className="no-vars-msg">Agrega {'{{variables}}'} en el editor para verlas aquí.</p>
             ) : (
               prompt.variables.map(v => (
                 <div key={v} className="var-input-group">
@@ -132,7 +132,7 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
                     type="text" 
                     value={variableValues[v] || ''}
                     onChange={(e) => handleVarChange(v, e.target.value)}
-                    placeholder={`Enter value for ${v}`}
+                    placeholder={`Ingresa el valor para ${v}`}
                   />
                 </div>
               ))
@@ -140,21 +140,21 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
           </div>
 
           <div className="preview-container">
-            <h4>Live Preview</h4>
+            <h4>Vista Previa en Vivo</h4>
             <div className="preview-box mono">
-              {compiledPrompt || <span className="preview-placeholder">Compiled prompt will appear here...</span>}
+              {compiledPrompt || <span className="preview-placeholder">El prompt compilado aparecerá aquí...</span>}
             </div>
           </div>
 
           <div className="injector-actions">
-            <button className="btn-secondary" title="Export to Markdown">
+            <button className="btn-secondary" title="Exportar a Markdown">
               <Download size={16} />
             </button>
-            <button className="btn-secondary" title="Direct API Test">
-              <Play size={16} /> Test
+            <button className="btn-secondary" title="Prueba Directa de API">
+              <Play size={16} /> Probar
             </button>
             <button className="btn-success copy-btn" onClick={() => onCopyCompiled(compiledPrompt)}>
-              <Copy size={16} /> Copy Compiled
+              <Copy size={16} /> Copiar Compilado
             </button>
           </div>
         </div>

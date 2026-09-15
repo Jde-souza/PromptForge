@@ -81,12 +81,12 @@ function App() {
 
   const handleCopy = (prompt) => {
     navigator.clipboard.writeText(prompt.content);
-    showToast('Prompt template copied to clipboard!');
+    showToast('¡Plantilla del prompt copiada al portapapeles!');
   };
 
   const handleCopyCompiled = (compiledText) => {
     navigator.clipboard.writeText(compiledText);
-    showToast('Compiled prompt copied to clipboard!');
+    showToast('¡Prompt compilado copiado al portapapeles!');
   };
 
   const handleSavePrompt = (savedPrompt) => {
@@ -97,7 +97,7 @@ function App() {
       // Create new
       setPrompts([savedPrompt, ...prompts]);
     }
-    showToast('Prompt saved successfully!');
+    showToast('¡Prompt guardado con éxito!');
     setCurrentView('catalog');
   };
 

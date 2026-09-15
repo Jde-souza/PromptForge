@@ -9,7 +9,7 @@ const Header = ({ onCreateNew }) => {
         <Search className="search-icon" size={18} />
         <input 
           type="text" 
-          placeholder="What does a world-class AI chat interface look like?" 
+          placeholder="¿Cómo se ve una interfaz de chat de IA de clase mundial?" 
           className="search-input"
         />
         <div className="search-shortcut">
@@ -21,7 +21,7 @@ const Header = ({ onCreateNew }) => {
       <div className="header-actions">
         <button className="btn-primary" onClick={onCreateNew}>
           <Plus size={18} />
-          New Master Prompt
+          Nuevo Master Prompt
         </button>
       </div>
     </header>

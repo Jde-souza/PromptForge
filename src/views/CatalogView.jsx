@@ -15,11 +15,11 @@ const CatalogView = ({ prompts, activeCategory, onRun, onCopy, onEdit }) => {
     <div className="catalog-view">
       <div className="catalog-header">
         <h2 className="catalog-title">
-          {activeCategory === 'all' ? 'All Prompts' : 
+          {activeCategory === 'all' ? 'Todos los Prompts' : 
            activeCategory.startsWith('#') ? activeCategory.substring(1) : 
            activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}
         </h2>
-        <span className="catalog-count">{filteredPrompts.length} templates</span>
+        <span className="catalog-count">{filteredPrompts.length} plantillas</span>
       </div>
 
       {filteredPrompts.length > 0 ? (
@@ -39,8 +39,8 @@ const CatalogView = ({ prompts, activeCategory, onRun, onCopy, onEdit }) => {
           <div className="empty-icon-wrapper">
             <PackageOpen size={48} className="empty-icon" />
           </div>
-          <h3>No prompts found</h3>
-          <p>We couldn't find any master prompts matching this category.</p>
+          <h3>No se encontraron prompts</h3>
+          <p>No pudimos encontrar ningún master prompt que coincida con esta categoría.</p>
         </div>
       )}
     </div>

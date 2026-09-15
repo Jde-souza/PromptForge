@@ -11,10 +11,10 @@ import './Sidebar.css';
 
 const Sidebar = ({ activeCategory, setActiveCategory }) => {
   const categories = [
-    { id: 'all', label: 'All Prompts', icon: FolderGit2, count: 12 },
-    { id: 'favorites', label: 'Favorites', icon: Star, count: 3 },
-    { id: 'starred', label: 'Starred Templates', icon: Bookmark, count: 5 },
-    { id: 'presets', label: 'Variable Presets', icon: Variable, count: 8 },
+    { id: 'all', label: 'Todos los Prompts', icon: FolderGit2, count: 12 },
+    { id: 'favorites', label: 'Favoritos', icon: Star, count: 3 },
+    { id: 'starred', label: 'Plantillas Destacadas', icon: Bookmark, count: 5 },
+    { id: 'presets', label: 'Variables Guardadas', icon: Variable, count: 8 },
   ];
 
   const tags = [
@@ -35,7 +35,7 @@ const Sidebar = ({ activeCategory, setActiveCategory }) => {
 
       <nav className="sidebar-nav">
         <div className="nav-section">
-          <h3 className="nav-title">LIBRARY</h3>
+          <h3 className="nav-title">BIBLIOTECA</h3>
           <ul>
             {categories.map((cat) => (
               <li key={cat.id}>
@@ -53,7 +53,7 @@ const Sidebar = ({ activeCategory, setActiveCategory }) => {
         </div>
 
         <div className="nav-section">
-          <h3 className="nav-title">CATEGORIES</h3>
+          <h3 className="nav-title">CATEGORÍAS</h3>
           <ul className="tags-list">
             {tags.map(tag => (
               <li key={tag}>
@@ -73,7 +73,7 @@ const Sidebar = ({ activeCategory, setActiveCategory }) => {
       <div className="sidebar-footer">
         <div className="status-indicator">
           <CloudOff size={14} className="status-icon local" />
-          <span>Local Storage</span>
+          <span>Almacenamiento Local</span>
         </div>
       </div>
     </aside>

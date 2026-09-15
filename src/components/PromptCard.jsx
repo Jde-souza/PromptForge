@@ -10,10 +10,10 @@ const PromptCard = ({ prompt, onRun, onCopy, onEdit }) => {
       <div className="card-header">
         <span className="badge category-badge">{category}</span>
         <div className="card-actions-hover">
-          <button className="btn-icon" title="Edit" onClick={() => onEdit(prompt)}><Edit2 size={14} /></button>
-          <button className="btn-icon" title="Duplicate"><CopyPlus size={14} /></button>
-          <button className="btn-icon" title="Export JSON"><Download size={14} /></button>
-          <button className="btn-icon danger" title="Delete"><Trash2 size={14} /></button>
+          <button className="btn-icon" title="Editar" onClick={() => onEdit(prompt)}><Edit2 size={14} /></button>
+          <button className="btn-icon" title="Duplicar"><CopyPlus size={14} /></button>
+          <button className="btn-icon" title="Exportar JSON"><Download size={14} /></button>
+          <button className="btn-icon danger" title="Eliminar"><Trash2 size={14} /></button>
         </div>
       </div>
       
@@ -27,14 +27,14 @@ const PromptCard = ({ prompt, onRun, onCopy, onEdit }) => {
       </div>
 
       <div className="card-footer">
-        <span className="last-modified">Updated {lastModified}</span>
+        <span className="last-modified">Actualizado {lastModified}</span>
         <div className="card-primary-actions">
-          <button className="btn-icon" title="Quick Copy" onClick={() => onCopy(prompt)}>
+          <button className="btn-icon" title="Copia Rápida" onClick={() => onCopy(prompt)}>
             <Copy size={16} />
           </button>
           <button className="btn-primary run-btn" onClick={() => onRun(prompt)}>
             <Play size={14} fill="currentColor" />
-            Compile
+            Compilar
           </button>
         </div>
       </div>
