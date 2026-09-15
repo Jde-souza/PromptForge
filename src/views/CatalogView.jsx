@@ -35,8 +35,8 @@ const CatalogView = ({ prompts, activeCategory, onRun, onCopy, onEdit }) => {
           ))}
         </div>
       ) : (
-        <div className="empty-state">
-          <div className="empty-icon-wrapper">
+        <div className="empty-state" role="status">
+          <div className="empty-icon-wrapper" aria-hidden="true">
             <PackageOpen size={48} className="empty-icon" />
           </div>
           <h3>No se encontraron prompts</h3>

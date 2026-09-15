@@ -15,8 +15,8 @@ const Toast = ({ message, isVisible, onClose }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="toast slide-up">
-      <CheckCircle2 size={18} className="toast-icon" />
+    <div className="toast slide-up" role="alert" aria-live="assertive">
+      <CheckCircle2 size={18} className="toast-icon" aria-hidden="true" />
       <span className="toast-message">{message}</span>
     </div>
   );

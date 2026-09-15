@@ -6,10 +6,11 @@ const Header = ({ onCreateNew }) => {
   return (
     <header className="header">
       <div className="search-container glow-border">
-        <Search className="search-icon" size={18} />
+        <Search className="search-icon" size={18} aria-hidden="true" />
         <input 
           type="text" 
           placeholder="¿Cómo se ve una interfaz de chat de IA de clase mundial?" 
+          aria-label="Buscar prompts"
           className="search-input"
         />
         <div className="search-shortcut">
@@ -20,7 +21,7 @@ const Header = ({ onCreateNew }) => {
       
       <div className="header-actions">
         <button className="btn-primary" onClick={onCreateNew}>
-          <Plus size={18} />
+          <Plus size={18} aria-hidden="true" />
           Nuevo Master Prompt
         </button>
       </div>

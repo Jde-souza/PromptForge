@@ -25,10 +25,10 @@ const Sidebar = ({ activeCategory, setActiveCategory }) => {
   ];
 
   return (
-    <aside className="sidebar">
+    <aside className="sidebar" aria-label="Navegación principal">
       <div className="sidebar-header">
         <div className="logo">
-          <Database className="logo-icon" size={24} />
+          <Database className="logo-icon" size={24} aria-hidden="true" />
           <span>PromptForge</span>
         </div>
       </div>
@@ -42,8 +42,9 @@ const Sidebar = ({ activeCategory, setActiveCategory }) => {
                 <button 
                   className={`nav-item ${activeCategory === cat.id ? 'active' : ''}`}
                   onClick={() => setActiveCategory(cat.id)}
+                  aria-current={activeCategory === cat.id ? 'page' : undefined}
                 >
-                  <cat.icon size={18} className="nav-icon" />
+                  <cat.icon size={18} className="nav-icon" aria-hidden="true" />
                   <span className="nav-label">{cat.label}</span>
                   <span className="nav-count">{cat.count}</span>
                 </button>
@@ -60,8 +61,9 @@ const Sidebar = ({ activeCategory, setActiveCategory }) => {
                 <button 
                   className={`tag-item ${activeCategory === tag ? 'active' : ''}`}
                   onClick={() => setActiveCategory(tag)}
+                  aria-current={activeCategory === tag ? 'page' : undefined}
                 >
-                  <span className="tag-hash">#</span>
+                  <span className="tag-hash" aria-hidden="true">#</span>
                   {tag}
                 </button>
               </li>
@@ -71,8 +73,8 @@ const Sidebar = ({ activeCategory, setActiveCategory }) => {
       </nav>
 
       <div className="sidebar-footer">
-        <div className="status-indicator">
-          <CloudOff size={14} className="status-icon local" />
+        <div className="status-indicator" role="status" aria-live="polite">
+          <CloudOff size={14} className="status-icon local" aria-hidden="true" />
           <span>Almacenamiento Local</span>
         </div>
       </div>

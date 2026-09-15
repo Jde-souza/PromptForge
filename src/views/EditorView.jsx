@@ -79,12 +79,14 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
               onChange={e => handleMetaChange('title', e.target.value)}
               className="meta-input title-input"
               placeholder="Título del Prompt"
+              aria-label="Título del Prompt"
             />
             <div className="meta-row">
               <select 
                 value={prompt.category} 
                 onChange={e => handleMetaChange('category', e.target.value)}
                 className="meta-select"
+                aria-label="Categoría"
               >
                 <option value="System Architecture">System Architecture</option>
                 <option value="Audio Engineering">Audio Engineering</option>
@@ -95,6 +97,7 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
                 value={prompt.model} 
                 onChange={e => handleMetaChange('model', e.target.value)}
                 className="meta-select"
+                aria-label="Modelo de IA"
               >
                 <option value="GPT-4o">GPT-4o</option>
                 <option value="Claude 3.7">Claude 3.7</option>
@@ -110,6 +113,7 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
               onChange={handleContentChange}
               placeholder="Escribe tu prompt aquí... Usa {{nombre_variable}} para agregar variables dinámicas."
               spellCheck="false"
+              aria-label="Cuerpo principal del prompt"
             />
           </div>
         </div>
@@ -127,8 +131,9 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
             ) : (
               prompt.variables.map(v => (
                 <div key={v} className="var-input-group">
-                  <label className="mono">{v}</label>
+                  <label htmlFor={`var-${v}`} className="mono">{v}</label>
                   <input 
+                    id={`var-${v}`}
                     type="text" 
                     value={variableValues[v] || ''}
                     onChange={(e) => handleVarChange(v, e.target.value)}
@@ -147,14 +152,14 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
           </div>
 
           <div className="injector-actions">
-            <button className="btn-secondary" title="Exportar a Markdown">
-              <Download size={16} />
+            <button className="btn-secondary" title="Exportar a Markdown" aria-label="Exportar a Markdown">
+              <Download size={16} aria-hidden="true" />
             </button>
             <button className="btn-secondary" title="Prueba Directa de API">
-              <Play size={16} /> Probar
+              <Play size={16} aria-hidden="true" /> Probar
             </button>
             <button className="btn-success copy-btn" onClick={() => onCopyCompiled(compiledPrompt)}>
-              <Copy size={16} /> Copiar Compilado
+              <Copy size={16} aria-hidden="true" /> Copiar Compilado
             </button>
           </div>
         </div>

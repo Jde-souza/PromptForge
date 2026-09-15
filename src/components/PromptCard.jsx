@@ -10,10 +10,10 @@ const PromptCard = ({ prompt, onRun, onCopy, onEdit }) => {
       <div className="card-header">
         <span className="badge category-badge">{category}</span>
         <div className="card-actions-hover">
-          <button className="btn-icon" title="Editar" onClick={() => onEdit(prompt)}><Edit2 size={14} /></button>
-          <button className="btn-icon" title="Duplicar"><CopyPlus size={14} /></button>
-          <button className="btn-icon" title="Exportar JSON"><Download size={14} /></button>
-          <button className="btn-icon danger" title="Eliminar"><Trash2 size={14} /></button>
+          <button className="btn-icon" title="Editar" aria-label="Editar prompt" onClick={() => onEdit(prompt)}><Edit2 size={14} aria-hidden="true" /></button>
+          <button className="btn-icon" title="Duplicar" aria-label="Duplicar prompt"><CopyPlus size={14} aria-hidden="true" /></button>
+          <button className="btn-icon" title="Exportar JSON" aria-label="Exportar a JSON"><Download size={14} aria-hidden="true" /></button>
+          <button className="btn-icon danger" title="Eliminar" aria-label="Eliminar prompt"><Trash2 size={14} aria-hidden="true" /></button>
         </div>
       </div>
       
@@ -29,11 +29,11 @@ const PromptCard = ({ prompt, onRun, onCopy, onEdit }) => {
       <div className="card-footer">
         <span className="last-modified">Actualizado {lastModified}</span>
         <div className="card-primary-actions">
-          <button className="btn-icon" title="Copia Rápida" onClick={() => onCopy(prompt)}>
-            <Copy size={16} />
+          <button className="btn-icon" title="Copia Rápida" aria-label="Copiar prompt rápidamente" onClick={() => onCopy(prompt)}>
+            <Copy size={16} aria-hidden="true" />
           </button>
           <button className="btn-primary run-btn" onClick={() => onRun(prompt)}>
-            <Play size={14} fill="currentColor" />
+            <Play size={14} fill="currentColor" aria-hidden="true" />
             Compilar
           </button>
         </div>
