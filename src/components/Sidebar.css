@@ -1,0 +1,149 @@
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-text-primary);
+}
+
+.logo-icon {
+  color: var(--color-primary);
+}
+
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.nav-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+  padding: 0 8px;
+  margin-bottom: 4px;
+}
+
+.nav-section ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-radius: 6px;
+  text-align: left;
+}
+
+.nav-item:hover {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
+.nav-item.active {
+  background-color: var(--color-primary-alpha);
+  color: var(--color-primary);
+}
+
+.nav-icon {
+  flex-shrink: 0;
+}
+
+.nav-label {
+  flex: 1;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.nav-count {
+  font-size: 0.75rem;
+  background-color: var(--color-bg-primary);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  color: var(--color-text-muted);
+}
+
+.nav-item.active .nav-count {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.tags-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px !important;
+}
+
+.tag-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.tag-item:hover {
+  color: var(--color-text-primary);
+}
+
+.tag-item.active {
+  color: var(--color-primary);
+}
+
+.tag-hash {
+  color: var(--color-text-muted);
+}
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.status-icon.local {
+  color: var(--color-success);
+}

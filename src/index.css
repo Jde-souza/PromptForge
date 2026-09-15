@@ -1,0 +1,217 @@
+:root {
+  /* Colors - Base (Dark Mode - Deep Space) */
+  --color-bg-primary: #0a0a10; /* Very dark navy/black */
+  --color-bg-secondary: #14141d; /* Slightly lighter */
+  --color-bg-tertiary: #1f1f2e; /* Slate/gray */
+  
+  --color-border: #2a2a3c;
+  --color-border-hover: #3f3f5a;
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0a0b0;
+  --color-text-muted: #6b6b7f;
+
+  /* Accents */
+  --color-primary: #2658fc; /* Vibrant Blue */
+  --color-primary-hover: #3a8eed;
+  --color-primary-alpha: rgba(38, 88, 252, 0.15);
+
+  --color-accent-blue: #16b1f9; /* For the gradient */
+  
+  --color-success: #10b981;
+  --color-success-hover: #059669;
+
+  /* Typography */
+  --font-sans: 'Inter', 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, 'Courier New', monospace;
+
+  /* Layout */
+  --sidebar-width: 260px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-tertiary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Utilities */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Common Components */
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 8px 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 8px 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  color: white;
+  padding: 8px 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-success:hover {
+  background-color: var(--color-success-hover);
+}
+
+.btn-icon {
+  background: transparent;
+  color: var(--color-text-secondary);
+  padding: 6px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+input, textarea, select {
+  font-family: inherit;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: 6px;
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--color-primary);
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-weight: 500;
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+}
+
+.badge.primary {
+  background-color: var(--color-primary-alpha);
+  color: var(--color-primary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* Glow Utilities inspired by reference image */
+.glow-border {
+  position: relative;
+  border-radius: var(--glow-radius, 12px);
+  background-color: var(--color-bg-secondary);
+  z-index: 1;
+}
+
+.glow-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(90deg, #6d55f7, #6b48ec, var(--color-accent-blue));
+  border-radius: calc(var(--glow-radius, 12px) + 2px);
+  z-index: -1;
+  filter: blur(8px);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.glow-border:hover::before, .glow-border:focus-within::before {
+  opacity: 1;
+  filter: blur(12px);
+}
+
+.glow-border::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--glow-radius, 12px);
+  z-index: -1;
+}

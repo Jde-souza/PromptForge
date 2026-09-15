@@ -1,0 +1,98 @@
+.prompt-card {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.prompt-card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 24px;
+}
+
+.category-badge {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+}
+
+.card-actions-hover {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.prompt-card:hover .card-actions-hover {
+  opacity: 1;
+}
+
+.card-actions-hover .btn-icon {
+  padding: 4px;
+}
+
+.card-actions-hover .btn-icon.danger:hover {
+  color: #ef4444; /* red-500 */
+}
+
+.card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.model-badge {
+  background-color: var(--color-primary-alpha);
+  color: var(--color-primary);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.variables-count {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.card-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px dashed var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.last-modified {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.card-primary-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.run-btn {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+}
