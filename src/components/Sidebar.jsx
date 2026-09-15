@@ -5,23 +5,17 @@ import {
   Bookmark, 
   Variable,
   Database,
-  CloudOff
+  CloudOff,
+  Settings
 } from 'lucide-react';
 import './Sidebar.css';
 
-const Sidebar = ({ activeCategory, setActiveCategory }) => {
-  const categories = [
+const Sidebar = ({ categories, activeCategory, setActiveCategory, onManageCategories }) => {
+  const defaultCategories = [
     { id: 'all', label: 'Todos los Prompts', icon: FolderGit2, count: 12 },
     { id: 'favorites', label: 'Favoritos', icon: Star, count: 3 },
     { id: 'starred', label: 'Plantillas Destacadas', icon: Bookmark, count: 5 },
     { id: 'presets', label: 'Variables Guardadas', icon: Variable, count: 8 },
-  ];
-
-  const tags = [
-    "System Architecture", 
-    "Audio Engineering", 
-    "Frontend", 
-    "Copywriting"
   ];
 
   return (
@@ -37,7 +31,7 @@ const Sidebar = ({ activeCategory, setActiveCategory }) => {
         <div className="nav-section">
           <h3 className="nav-title">BIBLIOTECA</h3>
           <ul>
-            {categories.map((cat) => (
+            {defaultCategories.map((cat) => (
               <li key={cat.id}>
                 <button 
                   className={`nav-item ${activeCategory === cat.id ? 'active' : ''}`}
@@ -55,8 +49,9 @@ const Sidebar = ({ activeCategory, setActiveCategory }) => {
 
         <div className="nav-section">
           <h3 className="nav-title">CATEGORÍAS</h3>
-          <ul className="tags-list">
-            {tags.map(tag => (
+          
+          <ul className="tags-list" style={{ marginTop: '4px' }}>
+            {categories.map(tag => (
               <li key={tag}>
                 <button 
                   className={`tag-item ${activeCategory === tag ? 'active' : ''}`}
@@ -68,6 +63,21 @@ const Sidebar = ({ activeCategory, setActiveCategory }) => {
                 </button>
               </li>
             ))}
+            <li>
+              <button 
+                className="btn-secondary" 
+                onClick={onManageCategories}
+                style={{ 
+                  width: 'calc(100% - 16px)', 
+                  margin: '12px 8px 0 8px', 
+                  justifyContent: 'center',
+                  fontSize: '0.85rem'
+                }}
+              >
+                <Settings size={16} aria-hidden="true" />
+                Gestionar Categorías
+              </button>
+            </li>
           </ul>
         </div>
       </nav>

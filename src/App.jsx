@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Toast from './components/Toast';
 import CatalogView from './views/CatalogView';
 import EditorView from './views/EditorView';
+import CategoryManagerModal from './components/CategoryManagerModal';
 import { extractVariables } from './utils/promptUtils';
 
 // Dummy initial data
@@ -28,23 +29,32 @@ const DUMMY_PROMPTS = [
   }
 ];
 
+const DEFAULT_CATEGORIES = [
+  "Arquitectura del sistema", 
+  "Ingeniería de Audio", 
+  "Frontend", 
+  "Copywriting"
+];
+
 function App() {
   const [prompts, setPrompts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
   
   // Navigation State
   const [currentView, setCurrentView] = useState('catalog'); // 'catalog' | 'editor'
   const [editingPrompt, setEditingPrompt] = useState(null);
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   // Toast State
   const [toast, setToast] = useState({ isVisible: false, message: '' });
 
   // Load from local storage
   useEffect(() => {
-    const saved = localStorage.getItem('promptforge_prompts');
-    if (saved) {
+    const savedPrompts = localStorage.getItem('promptforge_prompts');
+    if (savedPrompts) {
       try {
-        setPrompts(JSON.parse(saved));
+        setPrompts(JSON.parse(savedPrompts));
       } catch (e) {
         setPrompts(DUMMY_PROMPTS);
       }
@@ -52,14 +62,33 @@ function App() {
       setPrompts(DUMMY_PROMPTS);
       localStorage.setItem('promptforge_prompts', JSON.stringify(DUMMY_PROMPTS));
     }
+
+    const savedCategories = localStorage.getItem('promptforge_custom_categories');
+    if (savedCategories) {
+      try {
+        setCategories(JSON.parse(savedCategories));
+      } catch (e) {
+        setCategories(DEFAULT_CATEGORIES);
+      }
+    } else {
+      setCategories(DEFAULT_CATEGORIES);
+      localStorage.setItem('promptforge_custom_categories', JSON.stringify(DEFAULT_CATEGORIES));
+    }
   }, []);
 
-  // Save to local storage whenever prompts change
+  // Save prompts to local storage whenever they change
   useEffect(() => {
     if (prompts.length > 0) {
       localStorage.setItem('promptforge_prompts', JSON.stringify(prompts));
     }
   }, [prompts]);
+
+  // Save categories to local storage whenever they change
+  useEffect(() => {
+    if (categories.length > 0) {
+      localStorage.setItem('promptforge_custom_categories', JSON.stringify(categories));
+    }
+  }, [categories]);
 
   const showToast = (message) => {
     setToast({ isVisible: true, message });
@@ -101,11 +130,28 @@ function App() {
     setCurrentView('catalog');
   };
 
+  const handleAddCategory = (newCategory) => {
+    if (!categories.includes(newCategory)) {
+      setCategories([...categories, newCategory]);
+      showToast('¡Categoría añadida!');
+    }
+  };
+
+  const handleDeleteCategory = (categoryToDelete) => {
+    setCategories(categories.filter(cat => cat !== categoryToDelete));
+    if (activeCategory === categoryToDelete) {
+      setActiveCategory('all');
+    }
+    showToast('¡Categoría eliminada!');
+  };
+
   return (
     <div className="app-container">
       <Sidebar 
+        categories={categories}
         activeCategory={activeCategory} 
         setActiveCategory={setActiveCategory} 
+        onManageCategories={() => setIsCategoryModalOpen(true)}
       />
       
       <main className="main-content">
@@ -123,6 +169,7 @@ function App() {
           />
         ) : (
           <EditorView 
+            categories={categories}
             initialPrompt={editingPrompt}
             onSave={handleSavePrompt}
             onBack={() => setCurrentView('catalog')}
@@ -136,6 +183,15 @@ function App() {
         isVisible={toast.isVisible}
         onClose={() => setToast({ ...toast, isVisible: false })}
       />
+
+      {isCategoryModalOpen && (
+        <CategoryManagerModal 
+          categories={categories}
+          onClose={() => setIsCategoryModalOpen(false)}
+          onAdd={handleAddCategory}
+          onDelete={handleDeleteCategory}
+        />
+      )}
     </div>
   );
 }

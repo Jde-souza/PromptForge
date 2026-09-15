@@ -3,7 +3,7 @@ import { extractVariables, compilePrompt } from '../utils/promptUtils';
 import { ArrowLeft, Save, Copy, Download, Play } from 'lucide-react';
 import './EditorView.css';
 
-const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
+const EditorView = ({ categories, initialPrompt, onSave, onBack, onCopyCompiled }) => {
   const [prompt, setPrompt] = useState(initialPrompt || {
     id: Date.now().toString(),
     title: 'Nuevo Prompt',
@@ -88,10 +88,9 @@ const EditorView = ({ initialPrompt, onSave, onBack, onCopyCompiled }) => {
                 className="meta-select"
                 aria-label="Categoría"
               >
-                <option value="System Architecture">System Architecture</option>
-                <option value="Audio Engineering">Audio Engineering</option>
-                <option value="Frontend">Frontend</option>
-                <option value="Copywriting">Copywriting</option>
+                {categories.map((cat, idx) => (
+                  <option key={idx} value={cat}>{cat}</option>
+                ))}
               </select>
               <select 
                 value={prompt.model} 
