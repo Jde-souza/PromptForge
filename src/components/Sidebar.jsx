@@ -6,11 +6,12 @@ import {
   Variable,
   Database,
   CloudOff,
-  Settings
+  Settings,
+  LifeBuoy
 } from 'lucide-react';
 import './Sidebar.css';
 
-const Sidebar = ({ categories, activeCategory, setActiveCategory, onManageCategories }) => {
+const Sidebar = ({ categories, activeCategory, setActiveCategory, onOpenSettings, currentView, setCurrentView }) => {
   const defaultCategories = [
     { id: 'all', label: 'Todos los Prompts', icon: FolderGit2, count: 12 },
     { id: 'favorites', label: 'Favoritos', icon: Star, count: 3 },
@@ -34,9 +35,12 @@ const Sidebar = ({ categories, activeCategory, setActiveCategory, onManageCatego
             {defaultCategories.map((cat) => (
               <li key={cat.id}>
                 <button 
-                  className={`nav-item ${activeCategory === cat.id ? 'active' : ''}`}
-                  onClick={() => setActiveCategory(cat.id)}
-                  aria-current={activeCategory === cat.id ? 'page' : undefined}
+                  className={`nav-item ${activeCategory === cat.id && currentView !== 'help' ? 'active' : ''}`}
+                  onClick={() => {
+                    setActiveCategory(cat.id);
+                    if (setCurrentView) setCurrentView('catalog');
+                  }}
+                  aria-current={activeCategory === cat.id && currentView !== 'help' ? 'page' : undefined}
                 >
                   <cat.icon size={18} className="nav-icon" aria-hidden="true" />
                   <span className="nav-label">{cat.label}</span>
@@ -54,9 +58,12 @@ const Sidebar = ({ categories, activeCategory, setActiveCategory, onManageCatego
             {categories.map(tag => (
               <li key={tag}>
                 <button 
-                  className={`tag-item ${activeCategory === tag ? 'active' : ''}`}
-                  onClick={() => setActiveCategory(tag)}
-                  aria-current={activeCategory === tag ? 'page' : undefined}
+                  className={`tag-item ${activeCategory === tag && currentView !== 'help' ? 'active' : ''}`}
+                  onClick={() => {
+                    setActiveCategory(tag);
+                    if (setCurrentView) setCurrentView('catalog');
+                  }}
+                  aria-current={activeCategory === tag && currentView !== 'help' ? 'page' : undefined}
                 >
                   <span className="tag-hash" aria-hidden="true">#</span>
                   {tag}
@@ -66,16 +73,30 @@ const Sidebar = ({ categories, activeCategory, setActiveCategory, onManageCatego
             <li>
               <button 
                 className="btn-secondary" 
-                onClick={onManageCategories}
+                onClick={onOpenSettings}
                 style={{ 
                   width: 'calc(100% - 16px)', 
-                  margin: '12px 8px 0 8px', 
+                  margin: '16px 8px 0 8px', 
                   justifyContent: 'center',
                   fontSize: '0.85rem'
                 }}
               >
                 <Settings size={16} aria-hidden="true" />
-                Gestionar Categorías
+                Configuración
+              </button>
+            </li>
+          </ul>
+        </div>
+        
+        <div className="nav-section" style={{ marginTop: 'auto' }}>
+          <ul>
+            <li>
+              <button 
+                className={`nav-item ${currentView === 'help' ? 'active' : ''}`}
+                onClick={() => setCurrentView && setCurrentView('help')}
+              >
+                <LifeBuoy size={18} className="nav-icon" aria-hidden="true" />
+                <span className="nav-label">Centro de Ayuda</span>
               </button>
             </li>
           </ul>

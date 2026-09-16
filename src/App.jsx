@@ -4,7 +4,8 @@ import Header from './components/Header';
 import Toast from './components/Toast';
 import CatalogView from './views/CatalogView';
 import EditorView from './views/EditorView';
-import CategoryManagerModal from './components/CategoryManagerModal';
+import HelpView from './views/HelpView';
+import SettingsModal from './components/SettingsModal';
 import { extractVariables } from './utils/promptUtils';
 
 // Dummy initial data
@@ -36,15 +37,23 @@ const DEFAULT_CATEGORIES = [
   "Copywriting"
 ];
 
+const DEFAULT_MODELS = [
+  "GPT-4o",
+  "Claude 3.7",
+  "Gemini Pro"
+];
+
 function App() {
   const [prompts, setPrompts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [models, setModels] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
   
   // Navigation State
   const [currentView, setCurrentView] = useState('catalog'); // 'catalog' | 'editor'
   const [editingPrompt, setEditingPrompt] = useState(null);
-  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
   // Toast State
   const [toast, setToast] = useState({ isVisible: false, message: '' });
@@ -74,6 +83,18 @@ function App() {
       setCategories(DEFAULT_CATEGORIES);
       localStorage.setItem('promptforge_custom_categories', JSON.stringify(DEFAULT_CATEGORIES));
     }
+
+    const savedModels = localStorage.getItem('promptforge_custom_models');
+    if (savedModels) {
+      try {
+        setModels(JSON.parse(savedModels));
+      } catch (e) {
+        setModels(DEFAULT_MODELS);
+      }
+    } else {
+      setModels(DEFAULT_MODELS);
+      localStorage.setItem('promptforge_custom_models', JSON.stringify(DEFAULT_MODELS));
+    }
   }, []);
 
   // Save prompts to local storage whenever they change
@@ -89,6 +110,13 @@ function App() {
       localStorage.setItem('promptforge_custom_categories', JSON.stringify(categories));
     }
   }, [categories]);
+
+  // Save models to local storage whenever they change
+  useEffect(() => {
+    if (models.length > 0) {
+      localStorage.setItem('promptforge_custom_models', JSON.stringify(models));
+    }
+  }, [models]);
 
   const showToast = (message) => {
     setToast({ isVisible: true, message });
@@ -145,31 +173,53 @@ function App() {
     showToast('¡Categoría eliminada!');
   };
 
+  const handleAddModel = (newModel) => {
+    if (!models.includes(newModel)) {
+      setModels([...models, newModel]);
+      showToast('¡Modelo añadido!');
+    }
+  };
+
+  const handleDeleteModel = (modelToDelete) => {
+    setModels(models.filter(mod => mod !== modelToDelete));
+    showToast('¡Modelo eliminado!');
+  };
+
   return (
     <div className="app-container">
       <Sidebar 
         categories={categories}
         activeCategory={activeCategory} 
         setActiveCategory={setActiveCategory} 
-        onManageCategories={() => setIsCategoryModalOpen(true)}
+        onOpenSettings={() => setIsSettingsModalOpen(true)}
+        currentView={currentView}
+        setCurrentView={setCurrentView}
       />
       
       <main className="main-content">
         {currentView === 'catalog' && (
-          <Header onCreateNew={handleCreateNew} />
+          <Header 
+            onCreateNew={handleCreateNew} 
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
         )}
         
         {currentView === 'catalog' ? (
           <CatalogView 
             prompts={prompts}
             activeCategory={activeCategory}
+            searchQuery={searchQuery}
             onRun={handleRun}
             onCopy={handleCopy}
             onEdit={handleEdit}
           />
+        ) : currentView === 'help' ? (
+          <HelpView />
         ) : (
           <EditorView 
             categories={categories}
+            models={models}
             initialPrompt={editingPrompt}
             onSave={handleSavePrompt}
             onBack={() => setCurrentView('catalog')}
@@ -184,12 +234,15 @@ function App() {
         onClose={() => setToast({ ...toast, isVisible: false })}
       />
 
-      {isCategoryModalOpen && (
-        <CategoryManagerModal 
+      {isSettingsModalOpen && (
+        <SettingsModal 
           categories={categories}
-          onClose={() => setIsCategoryModalOpen(false)}
-          onAdd={handleAddCategory}
-          onDelete={handleDeleteCategory}
+          models={models}
+          onClose={() => setIsSettingsModalOpen(false)}
+          onAddCategory={handleAddCategory}
+          onDeleteCategory={handleDeleteCategory}
+          onAddModel={handleAddModel}
+          onDeleteModel={handleDeleteModel}
         />
       )}
     </div>
